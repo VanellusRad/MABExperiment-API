@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+  mab-api:
+    build: .
+    ports:
+      - "5001:5000"  # Alterado para 5001 na máquina host
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
+      - DATABASE_URL=postgresql://postgres:password@db:5432/mab_db
+    depends_on:
+      - db
+    volumes:
+      - ./app:/app
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mab_db
+    ports:
+      - "5433:5432"  # Alterado para 5433 na máquina host
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
