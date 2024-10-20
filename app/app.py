@@ -1,14 +1,12 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from config import Config
+from routes import main
+from db_connection import get_db_connection  # Importa de db_connection.py
 
 app = Flask(__name__)
 print("Flask app instance created")
 
-app.config.from_object(Config)
-
-db = SQLAlchemy(app)
-
-from .routes import main  # Importação relativa correta
 app.register_blueprint(main)
-print("Blueprint registered")
+print("Blueprint registrado")
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)

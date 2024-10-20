@@ -1,5 +1,18 @@
 from .app import db  # Importação relativa dentro do pacote
 
+from .app import db
+
+class NewTable(db.Model):
+    __tablename__ = 'new_table'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    description = db.Column(db.String(200))
+
+    def __repr__(self):
+        return f'<NewTable {self.name}>'
+
+
 class ExperimentData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, nullable=False)
